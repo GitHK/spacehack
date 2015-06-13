@@ -4,24 +4,7 @@ import os
 import time
 import threading
 import APIAccessor
-from device_data_builder import REAL_DEVICE_INDEX, STATUS
-
-FILENAME = "output.csv"
-
-REAL_DEVICE_IP = "192.168.1.105"
-
-ERROR_FILE_DATA = """acceleration_y 45.460341
-acceleration_x 17.866871
-tdr 17.957764
-tilt 59.170946
-"""
-
-OK_MOCK_FILE = """
-acceleration_y 45.460341
-acceleration_x 17.866871
-tdr 17.957764
-tilt 59.170946
-"""
+from constants import FILENAME, REAL_DEVICE_IP, REAL_DEVICE_INDEX, STATUS
 
 
 def get_parameters_from_file(filename):

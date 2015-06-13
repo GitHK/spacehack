@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 import APIAccessor
 import argparse
-from device_data_builder import build_device_list, build_device_from_file, device_positions, \
-    REAL_DEVICE_INDEX, DeviceNetwork, ALARMED_DEVICE
+from constants import ALARMED_DEVICE, ERROR_FILE_DATA
+from device_data_builder import build_device_list,  DeviceNetwork
 import time
-from device_interface import RealDeviceInterfaceThread, generate_real_device_event, ERROR_FILE_DATA
+from device_interface import RealDeviceInterfaceThread, generate_real_device_event
 
 
 device_network = DeviceNetwork(build_device_list())
