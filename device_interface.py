@@ -31,10 +31,12 @@ def _write_mock_file(data):
 
 
 def generate_real_device_event(data):
+    print "going to create file"
     _write_mock_file(data)
 
 
 def remove_real_device_event(data):
+    print "going to remove file"
     _write_mock_file(data)
 
 

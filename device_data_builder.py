@@ -7,7 +7,7 @@ import threading
 from math import sin, cos, sqrt, atan2, radians
 
 from constants import STATUS, REAL_DEVICE_INDEX, REAL_DEVICE_IP, OK_MOCK_FILE, ERROR_MOCK_FILE, ALARMED_DEVICE
-from device_interface import remove_real_device_event, generate_real_device_event
+from device_interface import remove_real_device_event
 
 
 device_positions = [(45.057652, 7.711078),
