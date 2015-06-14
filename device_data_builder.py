@@ -38,7 +38,7 @@ device_names = [
     "Aggressive Crayon",
     "Swift Clown",
     "Quality Barbaric Neutron",
-    "Venom Global",
+    "Intrepid",
     "Needless Rocky Comic",
     "Subtle Coffin",
     "Rainbow Mustard",
