@@ -134,15 +134,14 @@ class DeviceNetwork:
 
     def set_alarm_status_and_warn_near_devices(self, alarmed_device):
         for device in self.get_nodes_in_range(alarmed_device, 400):
-            if alarmed_device == self.devices.index(device):
-                self.server_set_status_in_node(alarmed_device, 2)
-                self.set_real_device_status("alert_on")
-            else:
-                self.server_set_status_in_node(self.devices.index(device), 1)
+            self.server_set_status_in_node(device, 1)
+            self.set_real_device_status("alert_on")
+
+        self.server_set_status_in_node(self.devices[alarmed_device], 2)
 
     def reset_network_status_to_normal(self):
         for device in self.devices:
-            self.server_set_status_in_node(self.devices.index(device), 0)
-            if self.devices.index(device) == REAL_DEVICE_INDEX:
+            self.server_set_status_in_node(device, 0)
+            if device == REAL_DEVICE_INDEX:
                 remove_real_device_event(OK_MOCK_FILE)
                 self.set_real_device_status("alert_off")
