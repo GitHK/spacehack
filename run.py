@@ -8,7 +8,7 @@ from device_interface import RealDeviceInterfaceThread, generate_real_device_eve
 
 
 device_network = DeviceNetwork(build_device_list())
-#RealDeviceInterfaceThread(device_network)
+RealDeviceInterfaceThread(device_network)
 
 while True:
     data = raw_input("W (warning event) R (reset network) S (generate real device alarm)")

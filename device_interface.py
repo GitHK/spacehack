@@ -33,9 +33,10 @@ def remove_real_device_event(data):
 
 
 class RealDeviceInterfaceThread(object):
-    def __init__(self, device_network, interval=1):
+    def __init__(self, device_network, interval=5):
         self.interval = interval
         self.device_network = device_network
+        self.last_status = None
 
         thread = threading.Thread(target=self.run, args=())
         thread.daemon = True
@@ -56,10 +57,15 @@ class RealDeviceInterfaceThread(object):
 
             APIAccessor.update_status(parameters['name'], parameters['status'])
 
-            if parameters['status'] == STATUS[2]:
+            current_status = parameters['status']
+
+            if current_status == STATUS[2] and current_status != self.last_status:
                 self.device_network.set_alarm_status_and_warn_near_devices(REAL_DEVICE_INDEX)
+                print "status ALARMED"
 
-            if parameters['status'] == STATUS[0]:
+            if current_status == STATUS[0] and current_status != self.last_status:
                 self.device_network.reset_network_status_to_normal()
+                print "status RUNNING"
 
+            self.last_status = current_status
             time.sleep(self.interval)
