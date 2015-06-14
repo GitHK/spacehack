@@ -145,9 +145,7 @@ class DeviceNetwork:
 
     def reset_network_status_to_normal(self):
         for device in self.devices:
-            print "going to reset all data"
             self.server_set_status_in_node_from_index(self.devices.index(device), 0)
             if self.devices.index(device) == REAL_DEVICE_INDEX:
-                print "resetting real dive file"
                 remove_real_device_event(OK_MOCK_FILE)
                 self.set_real_device_status("alert_off")

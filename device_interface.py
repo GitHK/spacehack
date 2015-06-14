@@ -27,16 +27,13 @@ def _write_mock_file(data):
         f.writelines(data)
         f.close()
     os.system('sshpass -p "intrepid" scp mock root@{ip}:mock 2>/dev/null'.format(ip=REAL_DEVICE_IP))
-    print "done writing data and executing"
 
 
 def generate_real_device_event(data):
-    print "going to create file"
     _write_mock_file(data)
 
 
 def remove_real_device_event(data):
-    print "going to remove file"
     _write_mock_file(data)
 
 
