@@ -8,8 +8,8 @@ import uuid
 from hashlib import sha256
 from math import sin, cos, sqrt, atan2, radians
 import APIAccessor
-from constants import STATUS, REAL_DEVICE_INDEX, REAL_DEVICE_IP, OK_MOCK_FILE
-from device_interface import remove_real_device_event
+from constants import STATUS, REAL_DEVICE_INDEX, REAL_DEVICE_IP, OK_MOCK_FILE, ERROR_MOCK_FILE
+from device_interface import remove_real_device_event, generate_real_device_event
 
 
 device_positions = [(45.057652, 7.711078),
@@ -111,22 +111,22 @@ class DeviceNetwork:
 
     def set_real_device_status(self, command_name):
         os.system(
-            'sshpass -p "intrepid" ssh root@{ip} touch {command}'.format(ip=REAL_DEVICE_IP, command=command_name))
+            'sshpass -p "intrepid" ssh root@{ip} touch {command} 2>/dev/null'.format(ip=REAL_DEVICE_IP, command=command_name))
 
-    def set_status_in_node(self, node_index, status_index):
+    def server_set_status_in_node(self, node_index, status_index):
         self.devices[node_index]['status'] = STATUS[status_index]
         APIAccessor.update_status(self.devices[node_index]['name'], self.devices[node_index]['status'])
 
     def set_alarm_status_and_warn_near_devices(self, alarmed_device):
         for device in self.get_nodes_in_range(alarmed_device, 400):
-            self.set_status_in_node(self.devices.index(device), 1)
+            self.server_set_status_in_node(self.devices.index(device), 1)
             if self.devices.index(device) == REAL_DEVICE_INDEX:
-                remove_real_device_event(OK_MOCK_FILE)
                 self.set_real_device_status("alert_on")
-        self.set_status_in_node(alarmed_device, 2)
+        self.server_set_status_in_node(alarmed_device, 2)
 
     def reset_network_status_to_normal(self):
         for device in self.devices:
-            self.set_status_in_node(self.devices.index(device), 0)
+            self.server_set_status_in_node(self.devices.index(device), 0)
             if self.devices.index(device) == REAL_DEVICE_INDEX:
+                remove_real_device_event(OK_MOCK_FILE)
                 self.set_real_device_status("alert_off")

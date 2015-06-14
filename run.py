@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import APIAccessor
 import argparse
-from constants import ALARMED_DEVICE, ERROR_FILE_DATA
+from constants import ALARMED_DEVICE, ERROR_MOCK_FILE
 from device_data_builder import build_device_list,  DeviceNetwork
 import time
 from device_interface import RealDeviceInterfaceThread, generate_real_device_event
@@ -18,6 +18,6 @@ while True:
         device_network.reset_network_status_to_normal()
 
     if data.upper() == "S":
-        generate_real_device_event(ERROR_FILE_DATA)
+        generate_real_device_event(ERROR_MOCK_FILE)
 
     device_network.print_network_status()

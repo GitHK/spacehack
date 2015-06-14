@@ -8,7 +8,7 @@ from constants import FILENAME, REAL_DEVICE_IP, REAL_DEVICE_INDEX, STATUS
 
 
 def get_parameters_from_file(filename):
-    os.system('sshpass -p "intrepid" scp root@{ip}:{file} .'.format(ip=REAL_DEVICE_IP,file=filename))
+    os.system('sshpass -p "intrepid" scp root@{ip}:{file} . 2>/dev/null'.format(ip=REAL_DEVICE_IP,file=filename))
     with open(filename) as f:
         lines = f.readlines()
         parameters = {}
@@ -19,7 +19,10 @@ def get_parameters_from_file(filename):
 
 
 def _write_mock_file(data):
-    os.system('sshpass -p "intrepid" ssh root@{ip} echo {content} > mock'.format(ip=REAL_DEVICE_IP,content=data))
+    filename = 'mock'
+    with open(filename,'w') as f:
+        f.writelines(data)
+        os.system('sshpass -p "intrepid" scp mock root@{ip}:mock 2>/dev/null'.format(ip=REAL_DEVICE_IP))
 
 def generate_real_device_event(data):
     _write_mock_file(data)
