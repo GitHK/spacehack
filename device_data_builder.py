@@ -134,10 +134,11 @@ class DeviceNetwork:
 
     def set_alarm_status_and_warn_near_devices(self, alarmed_device):
         for device in self.get_nodes_in_range(alarmed_device, 400):
-            self.server_set_status_in_node(self.devices.index(device), 1)
             if self.devices.index(device) == REAL_DEVICE_INDEX:
+                self.server_set_status_in_node(alarmed_device, 2)
                 self.set_real_device_status("alert_on")
-        self.server_set_status_in_node(alarmed_device, 2)
+            else:
+                self.server_set_status_in_node(self.devices.index(device), 1)
 
     def reset_network_status_to_normal(self):
         for device in self.devices:
