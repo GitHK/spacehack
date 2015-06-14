@@ -72,11 +72,11 @@ class RealDeviceInterfaceThread(object):
 
             current_status = parameters['status']
 
-            if current_status == STATUS[2] and current_status != self.last_status:
+            if current_status == STATUS[2]:
                 self.device_network.set_alarm_status_and_warn_near_devices(REAL_DEVICE_INDEX)
                 print "status ALARMED"
 
-            if current_status == STATUS[0] and current_status != self.last_status:
+            if current_status == STATUS[0]:
                 self.device_network.reset_network_status_to_normal()
                 print "status RUNNING"
 
