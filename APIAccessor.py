@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
-import os
-import urllib
+import requests
 
 BASE_URL = "http://cryptic-bayou-3624.herokuapp.com/api/"
 
 
 def _post_request(request, parameters):
-    url = BASE_URL + request + "?" + urllib.urlencode(parameters)
-    print  url
-    os.system("curl " + url)
+    return requests.post(BASE_URL + request, data=parameters).text
 
 
 def set_data(parameters):
@@ -30,5 +27,5 @@ def new_or_update_device(latitude, longitude, status, accelerometer_x, accelerom
 
 
 def update_status(name, status):
-    parameters = dict(name=name,status=status)
+    parameters = dict(name=name, status=status)
     return _post_request('update_status', parameters)
