@@ -14,13 +14,13 @@ def set_data(parameters):
     return _post_request('set_data', parameters)
 
 
-def new_or_update_device(latitude, longitude, status, acceleration_x, acceleration_y, tdr, tilt, name):
+def new_or_update_device(latitude, longitude, status, accelerometer_x, accelerometer_y, tdr, tilt, name):
     parameters = dict(
         latitude=latitude,
         longitude=longitude,
         status=status,
-        acceleration_x=acceleration_x,
-        acceleration_y=acceleration_y,
+        accelerometer_x=accelerometer_x,
+        accelerometer_y=accelerometer_y,
         tdr=tdr,
         tilt=tilt,
         name=name

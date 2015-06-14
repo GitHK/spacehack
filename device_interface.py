@@ -52,8 +52,8 @@ class RealDeviceInterfaceThread(object):
                 parameters['latitude'],
                 parameters['longitude'],
                 parameters['status'],
-                parameters['acceleration_x'],
-                parameters['acceleration_y'],
+                parameters['accelerometer_x'],
+                parameters['accelerometer_y'],
                 parameters['tdr'],
                 parameters['tilt'],
                 parameters['name'])
