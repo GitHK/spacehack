@@ -137,7 +137,7 @@ class DeviceNetwork:
             self.server_set_status_in_node(self.devices.index(device), 1)
             self.set_real_device_status("alert_on")
 
-        self.server_set_status_in_node(self.devices[alarmed_device], 2)
+        self.server_set_status_in_node(self.devices.index(alarmed_device), 2)
 
     def reset_network_status_to_normal(self):
         for device in self.devices:
