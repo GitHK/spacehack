@@ -130,12 +130,12 @@ class DeviceNetwork:
         import APIAccessor
         APIAccessor.update_status(self.devices[node_index]['name'], self.devices[node_index]['status'])
 
-    def set_alarm_status_and_warn_near_devices(self, alarmed_device):
-        for device in self.get_nodes_in_range(alarmed_device, 400):
+    def set_alarm_status_and_warn_near_devices(self, alarmed_device_index):
+        for device in self.get_nodes_in_range(alarmed_device_index, 400):
             self.server_set_status_in_node_from_index(self.devices.index(device), 1)
             self.set_real_device_status("alert_on")
 
-        self.server_set_status_in_node_from_index(self.devices.index(alarmed_device), 2)
+        self.server_set_status_in_node_from_index(alarmed_device_index, 2)
 
     def reset_network_status_to_normal(self):
         for device in self.devices:
