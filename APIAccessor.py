@@ -7,7 +7,7 @@ BASE_URL = "http://cryptic-bayou-3624.herokuapp.com/api/"
 
 def _post_request(request, parameters):
     url = BASE_URL + request + "?" + urllib.urlencode(parameters)
-    #return os.system("curl " + url)
+    return os.system("curl " + url)
 
 
 def set_data(parameters):
