@@ -7,8 +7,8 @@ BASE_URL = "http://cryptic-bayou-3624.herokuapp.com/api/"
 
 
 def _post_request(request, parameters):
-    #ExecuteConnectionOnThread(BASE_URL + request, parameters)
-    print requests.post(BASE_URL + request, parameters).text
+    ExecuteConnectionOnThread(BASE_URL + request, parameters)
+    #print request, requests.post(BASE_URL + request, parameters).text
 
 
 def new_or_update_device(latitude, longitude, status, accelerometer_x, accelerometer_y, tdr, tilt, name):
