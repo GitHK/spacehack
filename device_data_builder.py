@@ -58,8 +58,8 @@ def buid_device(position, name):
         latitude=position[0],
         longitude=position[1],
         status=STATUS[0],
-        acceleration_x=random.uniform(0, 100),
-        acceleration_y=random.uniform(0, 100),
+        acceleration_x=random.uniform(-0.1, 0.1),
+        acceleration_y=random.uniform(-0.1, 0.1),
         tdr=random.uniform(0, 50),
         tilt=random.uniform(0, 180),
         name=name
