@@ -36,7 +36,7 @@ def remove_real_device_event(data):
 
 
 class RealDeviceInterfaceThread(object):
-    def __init__(self, device_network, interval=2):
+    def __init__(self, device_network, interval=1):
         self.interval = interval
         self.device_network = device_network
         self.last_status = None
@@ -72,11 +72,11 @@ class RealDeviceInterfaceThread(object):
 
             current_status = parameters['status']
 
-            if current_status == STATUS[2]:
+            if current_status == STATUS[2] and self.last_status != current_status:
                 self.device_network.set_alarm_status_and_warn_near_devices(REAL_DEVICE_INDEX)
                 print "status ALARMED"
 
-            if current_status == STATUS[0]:
+            if current_status == STATUS[0] and self.last_status != current_status:
                 self.device_network.reset_network_status_to_normal()
                 print "status RUNNING"
 
