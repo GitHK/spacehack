@@ -6,8 +6,6 @@ from device_data_builder import build_device_list, DeviceNetwork
 import time
 from device_interface import RealDeviceInterfaceThread, generate_real_device_event
 
-BASE_URL = "http://cryptic-bayou-3624.herokuapp.com/api/"
-
 
 def parse_input():
     parser = argparse.ArgumentParser()

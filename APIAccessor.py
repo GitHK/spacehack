@@ -3,10 +3,9 @@ import threading
 import time
 import requests
 
-
+BASE_URL = "http://cryptic-bayou-3624.herokuapp.com/api/"
 
 def _post_request(request, parameters):
-    from run import BASE_URL
     ExecuteConnectionOnThread(BASE_URL + request, parameters)
     #print request, requests.post(BASE_URL + request, parameters).text
 
