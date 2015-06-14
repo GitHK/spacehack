@@ -71,8 +71,6 @@ def build_device_list():
     devices = []
 
     for (name,position,index) in zip(device_names, device_positions, range(0,len(device_names))):
-        if index == REAL_DEVICE_INDEX:
-            continue
         device = buid_device(position, name)
         devices.append(device)
         import APIAccessor
