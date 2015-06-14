@@ -25,7 +25,7 @@ def _write_mock_file(data):
     with open(filename, 'w') as f:
         f.writelines(data)
         f.close()
-        os.system('sshpass -p "intrepid" scp mock root@{ip}:mock 2>/dev/null'.format(ip=REAL_DEVICE_IP))
+    os.system('sshpass -p "intrepid" scp mock root@{ip}:mock 2>/dev/null'.format(ip=REAL_DEVICE_IP))
 
 
 def generate_real_device_event(data):
