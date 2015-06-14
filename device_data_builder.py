@@ -6,7 +6,7 @@ import time
 import threading
 from math import sin, cos, sqrt, atan2, radians
 
-from constants import STATUS, REAL_DEVICE_INDEX, REAL_DEVICE_IP, OK_MOCK_FILE, ERROR_MOCK_FILE
+from constants import STATUS, REAL_DEVICE_INDEX, REAL_DEVICE_IP, OK_MOCK_FILE, ERROR_MOCK_FILE, ALARMED_DEVICE
 from device_interface import remove_real_device_event, generate_real_device_event
 
 
@@ -134,7 +134,7 @@ class DeviceNetwork:
 
     def set_alarm_status_and_warn_near_devices(self, alarmed_device):
         for device in self.get_nodes_in_range(alarmed_device, 400):
-            if self.devices.index(device) == REAL_DEVICE_INDEX:
+            if alarmed_device == self.devices.index(device):
                 self.server_set_status_in_node(alarmed_device, 2)
                 self.set_real_device_status("alert_on")
             else:
