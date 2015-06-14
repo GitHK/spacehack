@@ -48,6 +48,9 @@ class RealDeviceInterfaceThread(object):
     def run(self):
         while True:
             parameters = get_parameters_from_file(FILENAME)
+            if parameters == {}:
+                time.sleep(self.interval)
+
             APIAccessor.new_or_update_device(
                 parameters['latitude'],
                 parameters['longitude'],
