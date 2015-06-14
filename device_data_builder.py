@@ -127,21 +127,21 @@ class DeviceNetwork:
             'sshpass -p "intrepid" ssh root@{ip} touch {command} 2>/dev/null'.format(ip=REAL_DEVICE_IP,
                                                                                      command=command_name))
 
-    def server_set_status_in_node(self, node_index, status_index):
+    def server_set_status_in_node_from_index(self, node_index, status_index):
         self.devices[node_index]['status'] = STATUS[status_index]
         import APIAccessor
         APIAccessor.update_status(self.devices[node_index]['name'], self.devices[node_index]['status'])
 
     def set_alarm_status_and_warn_near_devices(self, alarmed_device):
         for device in self.get_nodes_in_range(alarmed_device, 400):
-            self.server_set_status_in_node(self.devices.index(device), 1)
+            self.server_set_status_in_node_from_index(self.devices.index(device), 1)
             self.set_real_device_status("alert_on")
 
-        self.server_set_status_in_node(self.devices.index(alarmed_device), 2)
+        self.server_set_status_in_node_from_index(self.devices.index(alarmed_device), 2)
 
     def reset_network_status_to_normal(self):
         for device in self.devices:
-            self.server_set_status_in_node(self.devices.index(device), 0)
+            self.server_set_status_in_node_from_index(self.devices.index(device), 0)
             if device == REAL_DEVICE_INDEX:
                 remove_real_device_event(OK_MOCK_FILE)
                 self.set_real_device_status("alert_off")
