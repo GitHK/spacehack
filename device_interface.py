@@ -51,7 +51,14 @@ class RealDeviceInterfaceThread(object):
             if parameters == {}:
                 time.sleep(self.interval)
 
-            print APIAccessor.new_or_update_device(
+            # Override data
+            from device_data_builder import device_names, device_positions
+
+            parameters['latitude'] = device_positions[REAL_DEVICE_INDEX][0]
+            parameters['longitude'] = device_positions[REAL_DEVICE_INDEX][1]
+            parameters['name'] = device_names[REAL_DEVICE_INDEX]
+
+            APIAccessor.new_or_update_device(
                 parameters['latitude'],
                 parameters['longitude'],
                 parameters['status'],
@@ -61,7 +68,7 @@ class RealDeviceInterfaceThread(object):
                 parameters['tilt'],
                 parameters['name'])
 
-            print APIAccessor.update_status(parameters['name'], parameters['status'])
+            APIAccessor.update_status(parameters['name'], parameters['status'])
 
             current_status = parameters['status']
 

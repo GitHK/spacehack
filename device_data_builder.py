@@ -4,10 +4,8 @@ import os
 import random
 import time
 import threading
-import uuid
-from hashlib import sha256
 from math import sin, cos, sqrt, atan2, radians
-import APIAccessor
+
 from constants import STATUS, REAL_DEVICE_INDEX, REAL_DEVICE_IP, OK_MOCK_FILE, ERROR_MOCK_FILE
 from device_interface import remove_real_device_event, generate_real_device_event
 
@@ -29,11 +27,33 @@ device_positions = [(45.057652, 7.711078),
                     (45.050585, 7.705428),
                     (45.050024, 7.702204)]
 
+device_names = [
+    "Knife Running",
+    "Lone Plastic",
+    "Reborn Dagger",
+    "Sleepy Emerald",
+    "Timely Hammer",
+    "Skilled Balcony",
+    "Homeless Shower",
+    "Aggressive Crayon",
+    "Swift Clown",
+    "Quality Barbaric Neutron",
+    "Venom Global",
+    "Needless Rocky Comic",
+    "Subtle Coffin",
+    "Rainbow Mustard",
+    "Indigo Mercury,"
+    "Tidy Canal",
+    "Unique Lobster",
+]
+
+assert len(device_names) == len(device_positions)
+
 # device_positions[10] #real device id
 
 
 
-def buid_device(position):
+def buid_device(position, name):
     return dict(
         latitude=position[0],
         longitude=position[1],
@@ -42,27 +62,21 @@ def buid_device(position):
         acceleration_y=random.uniform(0, 100),
         tdr=random.uniform(0, 50),
         tilt=random.uniform(0, 180),
-        name=sha256(uuid.uuid1().hex).hexdigest()
-    )
-
-
-def build_device_from_file(data, status, acceleration_x, acceleration_y, tdr, name):
-    return dict(
-        latitude=device_positions[REAL_DEVICE_INDEX][0],
-        longitude=device_positions[REAL_DEVICE_INDEX][1],
-        status=status,
-        acceleration_x=acceleration_x,
-        acceleration_y=acceleration_y,
-        tdr=tdr,
         name=name
     )
 
 
+
 def build_device_list():
     devices = []
-    for position in device_positions[:8] + device_positions[8 + 1:]:
-        device = buid_device(position)
-        print APIAccessor.new_or_update_device(
+
+    for (name,position,index) in zip(device_names, device_positions, range(0,len(device_names))):
+        if index == REAL_DEVICE_INDEX:
+            continue
+        device = buid_device(position, name)
+        devices.append(device)
+        import APIAccessor
+        APIAccessor.new_or_update_device(
             device['latitude'],
             device['longitude'],
             device['status'],
@@ -71,7 +85,6 @@ def build_device_list():
             device['tdr'],
             device['tilt'],
             device['name'])
-        devices.append(device)
     return devices
 
 
@@ -111,11 +124,13 @@ class DeviceNetwork:
 
     def set_real_device_status(self, command_name):
         os.system(
-            'sshpass -p "intrepid" ssh root@{ip} touch {command} 2>/dev/null'.format(ip=REAL_DEVICE_IP, command=command_name))
+            'sshpass -p "intrepid" ssh root@{ip} touch {command} 2>/dev/null'.format(ip=REAL_DEVICE_IP,
+                                                                                     command=command_name))
 
     def server_set_status_in_node(self, node_index, status_index):
         self.devices[node_index]['status'] = STATUS[status_index]
-        print APIAccessor.update_status(self.devices[node_index]['name'], self.devices[node_index]['status'])
+        import APIAccessor
+        APIAccessor.update_status(self.devices[node_index]['name'], self.devices[node_index]['status'])
 
     def set_alarm_status_and_warn_near_devices(self, alarmed_device):
         for device in self.get_nodes_in_range(alarmed_device, 400):
