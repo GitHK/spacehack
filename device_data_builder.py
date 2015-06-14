@@ -110,7 +110,8 @@ class DeviceNetwork:
         print [dev['status'] for dev in self.devices]
 
     def set_real_device_status(self, command_name):
-        os.system('sshpass -p "intrepid" ssh root@{ip} touch ~/{command}'.format(ip=REAL_DEVICE_IP,command=command_name))
+        os.system(
+            'sshpass -p "intrepid" ssh root@{ip} touch {command}'.format(ip=REAL_DEVICE_IP, command=command_name))
 
     def set_status_in_node(self, node_index, status_index):
         self.devices[node_index]['status'] = STATUS[status_index]
