@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-from Queue import Queue
-from threading import Thread
 import threading
 import time
 import requests
@@ -10,7 +8,6 @@ BASE_URL = "http://cryptic-bayou-3624.herokuapp.com/api/"
 
 def _post_request(request, parameters):
     ExecuteConnectionOnThread(BASE_URL + request, parameters)
-    #print requests.post(BASE_URL + request, parameters).text
 
 
 def new_or_update_device(latitude, longitude, status, accelerometer_x, accelerometer_y, tdr, tilt, name):
@@ -43,4 +40,4 @@ class ExecuteConnectionOnThread(object):
         thread.start()
 
     def run(self):
-        print requests.post(self.url, self.parameters).text
+        print self.url, requests.post(self.url, self.parameters).text
