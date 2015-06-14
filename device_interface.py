@@ -36,7 +36,7 @@ def remove_real_device_event(data):
 
 
 class RealDeviceInterfaceThread(object):
-    def __init__(self, device_network, interval=5):
+    def __init__(self, device_network, interval=1):
         self.interval = interval
         self.device_network = device_network
         self.last_status = None
