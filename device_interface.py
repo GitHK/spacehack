@@ -14,6 +14,7 @@ def get_parameters_from_file(filename):
         parameters = {}
         for line in lines:
             values = line.strip('\n').split(',')
+            print values
             parameters[values[0]] = values[1]
     return parameters
 
