@@ -62,18 +62,19 @@ def buid_device(position, name):
         acceleration_y=random.uniform(-0.1, 0.1),
         tdr=random.uniform(0, 50),
         tilt=random.uniform(0, 180),
-        name=name
+        name=name,
+        temperature=random.uniform(10, 30)
     )
-
 
 
 def build_device_list():
     devices = []
 
-    for (name,position,index) in zip(device_names, device_positions, range(0,len(device_names))):
+    for (name, position, index) in zip(device_names, device_positions, range(0, len(device_names))):
         device = buid_device(position, name)
         devices.append(device)
         import APIAccessor
+
         APIAccessor.new_or_update_device(
             device['latitude'],
             device['longitude'],
@@ -82,7 +83,8 @@ def build_device_list():
             device['acceleration_y'],
             device['tdr'],
             device['tilt'],
-            device['name'])
+            device['name'],
+            device['temperature'])
     return devices
 
 
@@ -131,6 +133,7 @@ class DeviceNetwork:
 
         self.devices[node_index]['status'] = STATUS[status_index]
         import APIAccessor
+
         APIAccessor.update_status(self.devices[node_index]['name'], self.devices[node_index]['status'])
 
     def set_alarm_status_and_warn_near_devices(self, alarmed_device_index):

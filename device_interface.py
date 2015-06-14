@@ -67,7 +67,8 @@ class RealDeviceInterfaceThread(object):
                 parameters['accelerometer_y'],
                 parameters['tdr'],
                 parameters['tilt'],
-                parameters['name'])
+                parameters['name'],
+                parameters['temperature'])
 
             APIAccessor.update_status(parameters['name'], parameters['status'])
 

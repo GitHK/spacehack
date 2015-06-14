@@ -11,7 +11,7 @@ def _post_request(request, parameters):
     #print request, requests.post(BASE_URL + request, parameters).text
 
 
-def new_or_update_device(latitude, longitude, status, accelerometer_x, accelerometer_y, tdr, tilt, name):
+def new_or_update_device(latitude, longitude, status, accelerometer_x, accelerometer_y, tdr, tilt, name, temperature):
     parameters = dict(
         latitude=latitude,
         longitude=longitude,
@@ -20,7 +20,8 @@ def new_or_update_device(latitude, longitude, status, accelerometer_x, accelerom
         accelerometer_y=accelerometer_y,
         tdr=tdr,
         tilt=tilt,
-        name=name
+        name=name,
+        temperature=temperature
     )
     return _post_request('new_or_update_device', parameters)
 
