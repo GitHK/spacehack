@@ -51,7 +51,7 @@ class RealDeviceInterfaceThread(object):
             if parameters == {}:
                 time.sleep(self.interval)
 
-            APIAccessor.new_or_update_device(
+            print APIAccessor.new_or_update_device(
                 parameters['latitude'],
                 parameters['longitude'],
                 parameters['status'],
@@ -61,7 +61,7 @@ class RealDeviceInterfaceThread(object):
                 parameters['tilt'],
                 parameters['name'])
 
-            APIAccessor.update_status(parameters['name'], parameters['status'])
+            print APIAccessor.update_status(parameters['name'], parameters['status'])
 
             current_status = parameters['status']
 

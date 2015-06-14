@@ -62,7 +62,7 @@ def build_device_list():
     devices = []
     for position in device_positions[:8] + device_positions[8 + 1:]:
         device = buid_device(position)
-        APIAccessor.new_or_update_device(
+        print APIAccessor.new_or_update_device(
             device['latitude'],
             device['longitude'],
             device['status'],
@@ -115,7 +115,7 @@ class DeviceNetwork:
 
     def server_set_status_in_node(self, node_index, status_index):
         self.devices[node_index]['status'] = STATUS[status_index]
-        APIAccessor.update_status(self.devices[node_index]['name'], self.devices[node_index]['status'])
+        print APIAccessor.update_status(self.devices[node_index]['name'], self.devices[node_index]['status'])
 
     def set_alarm_status_and_warn_near_devices(self, alarmed_device):
         for device in self.get_nodes_in_range(alarmed_device, 400):
