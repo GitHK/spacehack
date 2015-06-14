@@ -21,7 +21,8 @@ def get_parameters_from_file(filename):
 def _write_mock_file(data):
     filename = 'mock'
     with open(filename,'w') as f:
-        f.writelines(data)
+        f.write(data)
+        f.close()
         os.system('sshpass -p "intrepid" scp mock root@{ip}:mock 2>/dev/null'.format(ip=REAL_DEVICE_IP))
 
 def generate_real_device_event(data):
