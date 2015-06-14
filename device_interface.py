@@ -10,7 +10,7 @@ from constants import FILENAME, REAL_DEVICE_IP, REAL_DEVICE_INDEX, STATUS
 def get_parameters_from_file(filename):
     os.system('sshpass -p "intrepid" scp root@{ip}:{file} . 2>/dev/null'.format(ip=REAL_DEVICE_IP, file=filename))
     with open(filename) as f:
-        lines = f.readlines()
+        lines = f.writelines()
         parameters = {}
         for line in lines:
             values = line.strip('\n').split(',')
